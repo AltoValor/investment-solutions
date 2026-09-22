@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alocação Internacional · Manual de Objeções — Alto Valor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08111C; --bg2:#0B1725; --surface:#0F1D2B; --surface2:#14283A;
+    --border:#1D3345; --border-soft:#152738;
+    --ink:#F4F4F4; --ink2:#A9BAC8; --ink3:#66788A;
+    --green:#009974; --green-soft:rgba(0,153,116,.13); --green-line:rgba(0,153,116,.42);
+    --tec:#9FB4C4; --tec-soft:rgba(159,180,196,.12);
+    --com:#009974; --com-soft:rgba(0,153,116,.12);
+    --warn:#C5897A; --warn-soft:rgba(197,137,122,.10);
+    --ui:'Montserrat',system-ui,-apple-system,sans-serif;
+    --display:'Montserrat',Georgia,serif;
+    --mono:'Montserrat',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--ui);
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(1100px 480px at 82% -10%, rgba(0,153,116,.10), transparent 62%);
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50; background:rgba(8,17,28,.84);
+    backdrop-filter:blur(12px); border-bottom:1px solid var(--border-soft);
+  }
+  .topbar-in{
+    max-width:1180px; margin:0 auto; padding:15px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:18px;
+  }
+  .brand{display:flex; align-items:center; gap:16px; min-width:0}
+  .logo-svg{height:22px; width:auto; display:block; flex:none}
+  .brand .sep{width:1px; height:20px; background:var(--border); display:inline-block}
+  .brand .sub{
+    font-size:11px; color:var(--ink3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+  }
+  .printbtn{
+    font-family:var(--ui); font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600;
+    color:var(--ink2); background:transparent; border:1px solid var(--border);
+    padding:9px 15px; border-radius:6px; cursor:pointer; transition:.18s; white-space:nowrap;
+  }
+  .printbtn:hover{border-color:var(--green-line); color:var(--green)}
+
+  /* ---------- hero ---------- */
+  .hero{max-width:1180px; margin:0 auto; padding:66px 24px 30px; position:relative}
+  .hero-tri{
+    position:absolute; top:40px; right:24px; width:120px; height:104px; opacity:.5; pointer-events:none;
+    background:linear-gradient(160deg, rgba(0,153,116,.55), rgba(0,153,116,0) 78%);
+    clip-path:polygon(50% 0, 100% 100%, 0 100%, 50% 55%, 50% 55%);
+  }
+  .eyebrow{
+    font-family:var(--ui); font-size:11px; letter-spacing:.28em; text-transform:uppercase; font-weight:600;
+    color:var(--green); margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--display); font-weight:600; line-height:1.12;
+    font-size:clamp(30px,5vw,52px); letter-spacing:-.005em; max-width:19ch;
+  }
+  .hero h1 em{font-style:normal; color:var(--green)}
+  .hero .lede{
+    margin-top:22px; max-width:60ch; color:var(--ink2); font-size:clamp(14.5px,1.6vw,16.5px); font-weight:400;
+  }
+  .hero .lede b{color:var(--ink); font-weight:600}
+
+  /* ---------- principles ---------- */
+  .principles{
+    max-width:1180px; margin:34px auto 0; padding:0 24px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+  }
+  .pr{
+    border:1px solid var(--border-soft); border-radius:12px; padding:18px 18px 20px;
+    background:linear-gradient(180deg, var(--surface), var(--bg2)); position:relative; overflow:hidden;
+  }
+  .pr::after{content:""; position:absolute; left:0; top:0; width:100%; height:2px; background:linear-gradient(90deg, var(--green), transparent 70%)}
+  .pr .n{font-family:var(--ui); font-size:12px; font-weight:700; color:var(--green); margin-bottom:10px; letter-spacing:.05em}
+  .pr h3{font-size:14.5px; font-weight:600; margin-bottom:6px; letter-spacing:-.005em}
+  .pr p{font-size:12.5px; color:var(--ink3); line-height:1.5; font-weight:400}
+
+  /* ---------- controls ---------- */
+  .controls-wrap{position:sticky; top:53px; z-index:40; background:rgba(8,17,28,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border-soft); margin-top:48px}
+  .controls{max-width:1180px; margin:0 auto; padding:16px 24px; display:flex; flex-wrap:wrap; align-items:center; gap:14px}
+  .search{position:relative; flex:1 1 280px; min-width:220px}
+  .search input{
+    width:100%; background:var(--surface); border:1px solid var(--border); color:var(--ink);
+    font-family:var(--ui); font-size:13.5px; padding:11px 14px 11px 40px; border-radius:8px; outline:none; transition:.18s;
+  }
+  .search input:focus{border-color:var(--green-line); box-shadow:0 0 0 3px var(--green-soft)}
+  .search input::placeholder{color:var(--ink3)}
+  .search svg{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--ink3)}
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chip{
+    font-family:var(--ui); font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:600;
+    color:var(--ink2); background:transparent; border:1px solid var(--border); padding:8px 13px;
+    border-radius:20px; cursor:pointer; transition:.16s; white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--green-line); color:var(--ink)}
+  .chip.active{background:var(--green-soft); border-color:var(--green-line); color:var(--green)}
+  .count{font-family:var(--ui); font-size:11.5px; font-weight:500; letter-spacing:.04em; color:var(--ink3); margin-left:auto; white-space:nowrap}
+
+  /* ---------- grid ---------- */
+  .grid{max-width:1180px; margin:0 auto; padding:30px 24px 20px; display:grid; grid-template-columns:repeat(2,1fr); gap:20px}
+  .card{
+    border:1px solid var(--border-soft); border-radius:16px; background:var(--surface);
+    padding:24px 24px 22px; display:flex; flex-direction:column;
+    opacity:0; transform:translateY(12px); animation:rise .5s ease forwards;
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .card:hover{border-color:var(--green-line); box-shadow:0 14px 40px -20px rgba(0,0,0,.8)}
+  @keyframes rise{to{opacity:1; transform:none}}
+
+  .card .meta{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
+  .card .cat{font-family:var(--ui); font-size:10px; letter-spacing:.18em; text-transform:uppercase; font-weight:700; color:var(--green)}
+  .card .id{font-family:var(--ui); font-size:11px; font-weight:600; color:var(--ink3)}
+
+  .objection{position:relative; padding-left:22px; margin-bottom:6px}
+  .objection::before{content:"\201C"; position:absolute; left:-6px; top:-6px; font-family:Georgia,serif; font-size:44px; color:var(--green-line); line-height:1}
+  .objection p{font-family:var(--display); font-style:italic; font-size:18px; line-height:1.38; color:var(--ink); font-weight:500}
+
+  .kernel{font-size:12.5px; color:var(--ink3); margin:10px 0 4px; padding-left:22px; font-weight:400}
+  .kernel b{color:var(--ink2); font-weight:600; font-style:normal}
+
+  .block{margin-top:16px}
+  .block .lab{
+    font-family:var(--ui); font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:700;
+    display:inline-flex; align-items:center; gap:7px; margin-bottom:7px;
+  }
+  .block .lab::before{content:""; width:7px; height:7px; border-radius:2px}
+  .block.tec .lab{color:var(--tec)} .block.tec .lab::before{background:var(--tec)}
+  .block.com .lab{color:var(--com)} .block.com .lab::before{background:var(--com)}
+  .block p{font-size:13.5px; color:var(--ink2); line-height:1.6; font-weight:400}
+  .block.tec{border-left:2px solid var(--tec-soft); padding-left:14px}
+  .block.com{border-left:2px solid var(--com-soft); padding-left:14px}
+
+  .support{
+    margin-top:14px; display:flex; gap:10px; align-items:flex-start;
+    background:var(--bg2); border:1px solid var(--border-soft); border-radius:10px; padding:11px 13px;
+  }
+  .support .ic{flex:none; margin-top:1px; color:var(--green)}
+  .support .txt{font-size:12px; color:var(--ink2); line-height:1.5; font-weight:400}
+  .support .txt b{color:var(--ink); font-weight:600}
+  .support .tag{display:block; font-family:var(--ui); font-size:9.5px; letter-spacing:.15em; text-transform:uppercase; font-weight:700; color:var(--green); margin-bottom:4px}
+
+  .frase{
+    margin-top:18px; background:var(--green-soft); border:1px solid var(--green-line); border-radius:11px;
+    padding:14px 16px; position:relative;
+  }
+  .frase .lab{font-family:var(--ui); font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--green); margin-bottom:8px; display:flex; align-items:center; gap:7px}
+  .frase .tri{width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:8px solid var(--green); display:inline-block}
+  .frase p{font-family:var(--display); font-style:italic; font-size:15.5px; line-height:1.42; color:var(--ink); font-weight:500}
+  .copy{
+    position:absolute; top:12px; right:12px; background:transparent; border:1px solid var(--green-line);
+    color:var(--green); font-family:var(--ui); font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+    padding:5px 9px; border-radius:6px; cursor:pointer; transition:.16s;
+  }
+  .copy:hover{background:var(--green); color:#08111C}
+  .copy.done{background:var(--green); border-color:var(--green); color:#08111C}
+
+  .avoid{margin-top:14px; background:var(--warn-soft); border:1px solid rgba(197,137,122,.25); border-radius:10px; padding:11px 14px}
+  .avoid .lab{font-family:var(--ui); font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--warn); margin-bottom:5px; display:block}
+  .avoid p{font-size:12.5px; color:var(--ink2); line-height:1.55; font-weight:400}
+
+  .empty{grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--ink3); font-family:var(--ui); font-size:13px; letter-spacing:.03em}
+
+  /* ---------- footer ---------- */
+  footer{max-width:1180px; margin:30px auto 0; padding:28px 24px 70px; border-top:1px solid var(--border-soft)}
+  footer .ft-lab{font-family:var(--ui); font-size:10px; letter-spacing:.18em; text-transform:uppercase; font-weight:700; color:var(--ink3); margin-bottom:12px}
+  footer p{font-size:12px; color:var(--ink3); max-width:92ch; line-height:1.65; margin-bottom:8px; font-weight:400}
+  footer p b{color:var(--ink2); font-weight:600}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .principles{grid-template-columns:repeat(2,1fr)}
+    .grid{grid-template-columns:1fr}
+    .hero-tri{display:none}
+  }
+  @media (max-width:560px){
+    .hero{padding-top:44px}
+    .principles{grid-template-columns:1fr}
+    .brand .sub{display:none}
+    .count{width:100%; margin-left:0}
+    .logo-svg{height:19px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card{animation:none; opacity:1; transform:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* ---------- print ---------- */
+  @media print{
+    body{background:#fff; color:#111; background-image:none}
+    .topbar,.controls-wrap,.principles,.copy,.printbtn,.hero-tri{display:none!important}
+    .hero{padding:10px 0}
+    .hero h1{color:#08111C; font-size:26px} .hero h1 em{color:#009974}
+    .hero .lede,.hero .lede b{color:#333}
+    .grid{display:block; padding:0}
+    .card{break-inside:avoid; page-break-inside:avoid; border:1px solid #ccc; background:#fff; margin-bottom:14px; box-shadow:none; opacity:1; transform:none}
+    .objection p,.frase p{color:#111}
+    .block p,.kernel,.avoid p{color:#333}
+    .frase{background:#e9f6f1; border-color:#009974}
+    footer p{color:#444}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1835 295.6">
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g>
+    <g>
+      <path class="st0" d="M174.9,248.6c-20.4-40.4-27.6-85.1-39.9-128.1-8.6-30.1-7.5-30.2-38.5-30.2-7.7,0-11.5,2.4-14.5,9.7C55,165.2,32.9,232.3,0,295.6h65.6c15.3-57.1,40.6-108.9,61.3-162.6,1.4,0,1.5,0,2.8,0,1,2,2.4,3.9,3,6.1,4.9,18,9.8,36,14.4,54,6.3,24.1,14.6,47.3,26.5,68.9.4-.2.9-.5,1.3-.7,2.8-1.4,3.9-5,2.4-7.8s-1.7-3.2-2.5-4.9Z"/>
+      <path class="st0" d="M240.6,14.8c-15.2,57-40.7,109.2-61.5,163.2q-1.7,0-3.3,0c-1.3-3.9-2.8-7.8-4-11.8-9.3-31.3-16.7-63.4-28.3-93.9-11.5-30.2-28-55.6-52.2-72.3-.4,1.1-.9,2.1-1.4,3.1-1.5,2.9-.6,6.4,1.9,8.5.9.7,1.8,1.5,2.7,2.2,27.3,23.1,42.3,53.9,52.2,87.3,10.8,36.4,20.3,73.1,30,109.8,2,7.4,5.3,10.5,14.3,9,5.3-.9,10.8-1.2,16.1-.2,8.3,1.5,11.5-.7,14.1-7,27.6-65.9,49.7-134.2,83.2-197.9h-63.8Z"/>
+    </g>
+    <g>
+      <g>
+        <path class="st0" d="M345.5,206.7h2.8v26.2h-2.8v-26.2Z"/>
+        <path class="st0" d="M388.1,206.7v26.2h-2.3l-16.9-21.3v21.3h-2.8v-26.2h2.3l16.9,21.3v-21.3h2.7Z"/>
+        <path class="st0" d="M427.5,206.7l-11.6,26.2h-2.7l-11.6-26.2h3l10,22.8,10.1-22.8h2.8Z"/>
+        <path class="st0" d="M459.3,230.5v2.4h-18.6v-26.2h18v2.4h-15.2v9.3h13.6v2.4h-13.6v9.7h15.8Z"/>
+        <path class="st0" d="M472.6,229.7l1.1-2.1c1.9,1.8,5.2,3.2,8.7,3.2,4.9,0,7-2.1,7-4.6,0-7.2-16.2-2.8-16.2-12.5s3-7.2,9.7-7.2,6,.9,8.1,2.3l-.9,2.2c-2.2-1.5-4.9-2.2-7.2-2.2-4.8,0-6.9,2.1-6.9,4.8,0,7.2,16.2,2.8,16.2,12.4s-3.1,7.2-9.8,7.2-7.8-1.4-9.7-3.4Z"/>
+        <path class="st0" d="M512.3,209.1h-9.2v-2.4h21.2v2.4h-9.2v23.8h-2.8v-23.8Z"/>
+        <path class="st0" d="M538.1,206.7h2.8v26.2h-2.8v-26.2Z"/>
+        <path class="st0" d="M586.1,206.7v26.2h-2.7v-21l-10.3,17.7h-1.3l-10.3-17.5v20.9h-2.7v-26.2h2.3l11.4,19.5,11.3-19.5h2.3Z"/>
+        <path class="st0" d="M622.6,230.5v2.4h-18.6v-26.2h18v2.4h-15.2v9.3h13.6v2.4h-13.6v9.7h15.8Z"/>
+        <path class="st0" d="M660.4,206.7v26.2h-2.3l-16.9-21.3v21.3h-2.8v-26.2h2.3l16.9,21.3v-21.3h2.7Z"/>
+        <path class="st0" d="M683.4,209.1h-9.2v-2.4h21.2v2.4h-9.2v23.8h-2.8v-23.8Z"/>
+        <path class="st0" d="M706.5,219.8c0-7.6,5.8-13.3,13.8-13.3s13.8,5.7,13.8,13.3-5.9,13.3-13.8,13.3-13.8-5.7-13.8-13.3ZM731.3,219.8c0-6.3-4.7-10.9-11-10.9s-11.1,4.6-11.1,10.9,4.7,10.9,11.1,10.9,11-4.6,11-10.9Z"/>
+        <path class="st0" d="M747.2,229.7l1.1-2.1c1.9,1.8,5.2,3.2,8.7,3.2,4.9,0,7-2.1,7-4.6,0-7.2-16.2-2.8-16.2-12.5s3-7.2,9.7-7.2,6,.9,8.1,2.3l-.9,2.2c-2.2-1.5-4.9-2.2-7.2-2.2-4.8,0-6.9,2.1-6.9,4.8,0,7.2,16.2,2.8,16.2,12.4s-3.1,7.2-9.8,7.2-7.8-1.4-9.7-3.4Z"/>
+      </g>
+      <g>
+        <path class="st0" d="M399.2,162.4v-3.7c9.1-1.1,10.3-2.4,8.3-7.4-1.8-5.2-4.6-11.8-7.6-20.2h-30.4c-2.2,6-4.4,11.2-6.3,16.6-3.1,8.6-1.1,9.7,10.4,11v3.7h-32.5v-3.7c8.9-1.1,11.1-2,16-13.9l29.1-69.7,4.5-.8c8.9,22.7,18.5,47.8,27.4,70.8,4.5,11.6,5.8,12.6,15.7,13.7v3.7h-34.7ZM385.2,91.6c-4.5,11.4-9.3,23.5-13.5,34h26.3l-12.8-34Z"/>
+        <path class="st0" d="M545.2,140.3c-.8,4.1-5.1,17.9-6.5,22h-65.3v-3.7c12.8-1.2,13.9-1.9,13.9-13.1v-52.7c0-11.3-1.4-11.9-12.6-13v-3.7h37.7v3.7c-11.2,1.1-12.8,1.6-12.8,13v54c0,8.1,1.1,10,9.1,10.1.1,0,10.3.1,11.1.1,7.2,0,9.3-.8,12.5-4.1,3.5-3.5,6.5-8.8,8.6-13.7l4.4,1.1Z"/>
+        <path class="st0" d="M651.2,96.9c-1.3-4.2-3-8.6-4.5-11-2.2-3.6-3.7-4.5-11.4-4.5h-14.1v64.7c0,10.4,1.1,11.8,14.5,12.6v3.7h-40.9v-3.7c13.1-.8,14.2-2.1,14.2-12.6v-64.7h-12.8c-7.7,0-10,.8-12.4,4.8-1.7,2.7-2.8,5.8-4.6,10.8h-4.2c.8-8.1,1.7-16.5,2.1-23.9h3.2c2.1,3.2,3.7,3.1,7.6,3.1h55.7c3.9,0,5.1-.5,7.2-3.1h3.4c0,6.2.6,15.8,1.3,23.5l-4.2.4Z"/>
+        <path class="st0" d="M749.6,74.2c24,0,45.5,17.4,45.5,43.8s-20.5,46.3-46.4,46.3-46.7-19.4-46.7-44.3,17.8-45.8,47.5-45.8ZM746.8,79.1c-15.7,0-30.1,12.5-30.1,37.3s14.3,42.9,34.3,42.9,29.8-11.9,29.8-37.6-15.6-42.6-34-42.6Z"/>
+        <path class="st0" d="M931.1,81c-9.3.9-12.1,2.1-17.4,14.7-4.4,10.2-18.8,43.1-29.2,68.1h-7.7c-3.9-10.4-22.2-55.9-28.1-70-4.4-10-6.2-12.1-15.3-12.9v-4.9h42.9v4.9c-10.4,1.3-10.4,2.3-8.2,7.8,4.4,11.2,14.9,38.5,19.7,50.2,8.4-19,16-37,19.3-45.7,3.5-9.2,2.5-11.2-9.3-12.3v-4.9h33.4v4.9Z"/>
+        <path class="st0" d="M1001.8,162.4v-4.9c8.9-1.2,8.9-2.7,6.9-8.4-1.4-4-3.7-10-5.8-15.3h-27.4c-1.5,4.1-3.5,9.2-4.9,13.3-3,8.4.4,9.4,11.5,10.4v4.9h-34.7v-4.9c8.9-1.1,11.1-2.3,15.9-13.4l29.2-68.6,6.7-1.2c9,23.1,18.6,46.7,27.7,68.9,5.2,12.3,6.5,13.3,15.6,14.3v4.9h-40.8ZM989.5,98.9c-4.1,9.6-8,18.5-11.5,28.1h22.3l-10.8-28.1Z"/>
+        <path class="st0" d="M1157.3,139c-1.1,5.7-5.1,19.8-6.3,23.4h-69.7v-4.9c12.4-.8,13.5-1.7,13.5-12.9v-50.6c0-11.2-1.4-12.2-11.9-13v-4.9h43.8v4.9c-11,.9-12.4,1.9-12.4,13v51.5c0,7.3.3,10.6,8,10.8.3.1,6.7.1,7.3.1,8,0,10.1-1.6,13.5-5.2,2.7-2.7,6.3-8.4,8.9-13.8l5.3,1.6Z"/>
+        <path class="st0" d="M1249.9,74.2c26,0,47.2,17.9,47.2,44.1s-21.4,46.1-47.9,46.1-48.5-19.4-48.5-45,17.1-45.1,49.2-45.1ZM1247.8,80.1c-14.3,0-24.9,13.3-24.9,36.8s9.4,41.7,28.4,41.7,23.8-12.2,23.8-36.5-11-41.9-27.3-41.9Z"/>
+        <path class="st0" d="M1432.8,163.2c-.8,0-2.5,0-4.2-.1-17.8-.8-23-4.4-27.3-10-5.6-7.3-9.7-15.4-14.5-23.4-2.1-3.6-4.1-4.4-8.6-4.4h-2.8c0-.1,0,19.2,0,19.2,0,10.8,1.4,11.7,11.9,12.9v4.9h-43v-4.9c10.7-1.1,11.9-2.1,11.9-12.9v-50.8c0-10.5-1.4-11.9-11.9-12.7v-4.9h40.8c12.5,0,19.7,1.3,25.4,5,5.6,3.6,9.4,9.4,9.4,17.7,0,11.8-8.3,18.1-17.6,21.5,2.1,4,7.6,12.6,11.8,18.7,4.9,7.3,8,10.9,10.7,13.8,3.2,3.5,4.8,4.5,8.9,5.8l-1,4.5ZM1379.3,119.8c6,0,10.7-.9,13.8-3.5,4.6-3.7,6.6-8.8,6.6-15.5,0-14.1-8.6-19.1-16.4-19.1s-5.6.5-6.5,1.3c-1,.8-1.3,2.4-1.3,5v31.7h3.8Z"/>
+      </g>
+    </g>
+  </g>
+  <g>
+    <path class="st0" d="M1702.9,177.1c-6.1-6.1-11.9-12.2-18-17.8-1.8-1.7-4.8-2.9-7.2-3-7.5-.4-15-.2-22.6-.1-1.3,0-2.6.2-4.4,1.3,12.1,11.7,24.3,23.5,36.8,35.6-12.1,11.8-24,23.3-36.6,35.5,1.9.3,2.9.6,3.9.6,7.9,0,15.9.2,23.8-.1,2.4-.1,5.1-1.4,6.9-3,5.8-5.3,11.1-10.9,16.3-16,5,4.6,10.3,8.8,14.8,13.8,3.6,3.9,7.3,5.7,12.7,5.4,8.2-.4,16.4-.1,24.7,0,1.3,0,2.7.1,4.2.5-11.8,5.3-12.2,15.7-12,26.4-.9.2-1.5.4-2.2.4-41.3,0-82.5,0-123.8-.1-16.4,0-26.3-10.6-26.3-27,0-54.6,0-109.3,0-163.9,0-15,9.3-25,24.3-25.9,4-.2,8.1-.4,12.1-.4,57.6,0,115.1-.1,172.7.1,6.3,0,12.9,1,18.7,3.2,8.4,3.1,12.9,10.6,13,19.3.3,37.9.1,75.8.1,113.7,0,.4-.1.7-.2,1.1-2.4-3.4-4.3-7.1-7.1-10-7.1-7.6-16.6-10.2-26.6-10.3-25.1-.3-50.2-.3-75.3,0-2,0-4.5,1.5-6,3.1-5.7,5.7-11.1,11.7-16.8,17.8Z"/>
+    <path class="st0" d="M1834.7,208.9c0,9,.8,18-.2,26.8-1.4,11.8-11.1,20.1-23.3,20.5-13.6.4-27.3,0-41.2,0v-27.5c3.4,0,6.6,0,9.9,0,8.8-.1,17.6.3,26.3-.5,12.8-1.2,23.1-6.8,28.5-19.4Z"/>
+    <path class="st0" d="M1769.7,206.8v-28.3c3.8,0,7.4,0,11.1,0,6.1,0,12.3-.2,18.4.1,10.5.5,16.1,7.1,14.8,16.9-.9,6.3-5.3,10.7-13.2,11.1-10.2.6-20.5.1-31.1.1Z"/>
+    <path class="st0" d="M1719.7,191.3c7.7-7.5,16.7-16.1,26.2-25.2v53.9c-9-9.9-17.4-19.1-26.2-28.7Z"/>
+  </g>
+</svg>
+      <span class="sep"></span>
+      <span class="sub">Alocação Internacional · Manual de Objeções</span>
+    </div>
+    <button class="printbtn" onclick="window.print()">Imprimir / PDF</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-tri"></div>
+  <div class="eyebrow">Enablement comercial · uso interno</div>
+  <h1>Toda objeção é, no fundo, um <em>pedido de segurança</em>.</h1>
+  <p class="lede">Este manual reúne as objeções mais comuns à alocação internacional e a forma de respondê-las com <b>embasamento técnico</b> e <b>condução comercial</b>. Em cada caso há uma <b>frase de bolso</b> pronta para usar com o cliente. Use a busca ou os filtros para encontrar a objeção na hora da conversa.</p>
+</section>
+
+<section class="principles">
+  <div class="pr"><div class="n">01</div><h3>Diversificar reduz risco</h3><p>100% no Brasil não é o seguro — é a aposta concentrada. O risco real é a concentração de país e moeda.</p></div>
+  <div class="pr"><div class="n">02</div><h3>Dólar é seguro, não aposta</h3><p>Não se compra dólar para ganhar com o dólar. Compra-se para proteger o patrimônio quando o Brasil aperta.</p></div>
+  <div class="pr"><div class="n">03</div><h3>Proporção, nunca tudo-ou-nada</h3><p>A renda fixa Brasil segue como núcleo. O internacional é uma fração adequada ao perfil (ex.: 10–30%).</p></div>
+  <div class="pr"><div class="n">04</div><h3>Longo prazo + aporte mensal</h3><p>Ninguém acerta o ponto de entrada. Aporte programado dilui o timing e tira a ansiedade da decisão.</p></div>
+</section>
+
+<div class="controls-wrap">
+  <div class="controls">
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="text" placeholder="Buscar objeção, palavra-chave (ex.: dólar, imposto, Selic, liquidez)..." autocomplete="off" />
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="count" id="count"></div>
+  </div>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<footer>
+  <div class="ft-lab">Notas de conformidade</div>
+  <p><b>Suitability primeiro.</b> Qualquer recomendação de alocação internacional deve respeitar o perfil de risco (suitability) do cliente. Este material é roteiro de argumentação, não recomendação automática de produto ou alocação.</p>
+  <p><b>Tributação.</b> As referências à Lei 14.754/2023 (alíquota única de 15% ao ano sobre aplicações financeiras no exterior da pessoa física, sem come-cotas, com compensação de perdas e reciprocidade Brasil–EUA para dividendos) são gerais e válidas para o cenário de 2026. Estruturas como offshore, PIC e trust seguem regras próprias. O cliente deve confirmar o caso concreto com seu contador ou advogado tributarista.</p>
+  <p><b>Câmbio.</b> Nunca prometer direção do dólar nem retorno. O argumento cambial é sempre de descorrelação e proteção, não de projeção de preço.</p>
+  <p>Dados de mercado de referência: Selic em 14,50% a.a. (Copom, abril/2026). Documento de uso interno Alto Valor Investimentos.</p>
+</footer>
+
+<script>
+const DATA = [
+  {id:1, cat:"cambio", catLabel:"Câmbio",
+   o:"O dólar já subiu muito. Vou comprar no topo.",
+   k:"Faz sentido temer comprar no pico — esse é o instinto certo para quem está fazendo um trade.",
+   tec:"Em alocação internacional o dólar é o veículo, não o alvo: o objetivo é descorrelacionar o patrimônio do risco-Brasil, não 'acertar' o câmbio. O real tem viés estrutural de desvalorização frente ao dólar ao longo do tempo, puxado pelo diferencial de inflação e pelo prêmio de risco-país. Cronometrar o câmbio tem péssimo histórico até entre gestores profissionais — e aporte mensal (custo médio) neutraliza o ponto de entrada.",
+   com:"Reposicione de 'aposta no dólar' para 'seguro do patrimônio'. Pergunte: quando o Brasil entra em crise, o que acontece com um patrimônio 100% em real? E com o dólar? O dólar costuma subir justamente no dia em que ele mais precisa. Comece com aporte programado para tirar a ansiedade do timing.",
+   f:"A gente não está comprando dólar pra ganhar com o dólar — está comprando proteção. E proteção não tem hora certa: ou você tem, ou não tem no dia que precisa.",
+   avoid:"Não prometa direção do câmbio ('o dólar vai a X'). O argumento é proteção, nunca projeção."},
+
+  {id:2, cat:"cambio", catLabel:"Câmbio",
+   o:"E se o real se valorizar? Aí eu perco dinheiro lá fora.",
+   k:"",
+   tec:"Se o real se valoriza, em geral é porque o Brasil vai bem — e aí o patrimônio local (imóveis, salário, ações e renda fixa BR) se beneficia; a parcela internacional cede um pouco, e é para isso que ela existe. Mas há um ponto estrutural mais profundo por trás do câmbio: no longo prazo, a taxa de câmbio reflete o diferencial de produtividade e de confiança entre as economias. Uma moeda se fortalece de forma sustentável quando o país cresce em produtividade, tem instituições sólidas e inflação sob controle — não por ondas de humor de curto prazo. O real é uma moeda jovem, com apenas 31 anos, que já se desvalorizou cerca de 84% desde 1994; valorizações pontuais não revertem esse pano de fundo. Apostar numa valorização duradoura do real é, no fundo, apostar que o Brasil vai fechar o gap de produtividade com as economias desenvolvidas — uma aposta legítima, mas que o cliente não precisa fazer com 100% do patrimônio.",
+   com:"Mostre que o cliente não está 'torcendo pelo dólar' — está montando uma carteira que funciona nos dois cenários. Se o real subir, é motivo de comemoração, porque o grosso do patrimônio dele está em real. E deixe claro que valorização de moeda que dura vem de produtividade e confiança, não de ciclo curto — por isso a proteção é estrutural, não uma aposta de tendência.",
+   f:"Se o real valorizar, ótimo — quer dizer que 80–90% do seu patrimônio está ganhando. A parte de fora é o seu seguro pro outro cenário. E moeda forte de verdade nasce de produtividade, não de um trimestre bom.",
+   dado:"Desde 1994 o real já perdeu cerca de <b>84%</b> do valor frente ao dólar. O Brasil já teve <b>10 moedas diferentes</b>, com vida média de <b>19 anos</b> — estabilidade cambial acompanha maturidade econômica e produtividade.",
+   avoid:""},
+
+  {id:3, cat:"cambio", catLabel:"Câmbio",
+   o:"Meus gastos são todos em real. Não preciso de dólar.",
+   k:"Parece verdade — mas boa parte do consumo já é dolarizada sem o cliente perceber.",
+   tec:"Os gastos correntes são pagos em real, mas boa parte deles é dolarizada de forma indireta. Combustível, eletrônicos, remédios, viagens, itens importados e até alimentos ligados a commodities (que são cotadas em dólar) sobem quando o real se desvaloriza. Estudos da FGV mostram que a variação cambial afeta algo em torno de 16% a 18% da cesta de consumo do brasileiro — e isso vale para todas as faixas de renda. O caso do iPhone ilustra bem: entre 2008 e 2025 o preço subiu cerca de 60% em dólar, mas cerca de 185% em reais, e a diferença é puro câmbio. Ou seja, o cliente já 'gasta em dólar' todos os dias, sem perceber. Ter parte do patrimônio em dólar apenas alinha a moeda do patrimônio à moeda que, na prática, define o custo de vida dele. Além disso, o horizonte importa: saúde, educação dos filhos, viagens e uma eventual mudança são despesas de décadas, e nesse prazo o real historicamente perde poder de compra.",
+   com:"Traga a dolarização para dentro da rotina dele. Pergunte: quando o dólar dispara, o que acontece com a gasolina, a viagem, o celular, o remédio importado? Ter dólar no patrimônio é o hedge natural de despesas que ele já tem — e continua sendo a proteção do padrão de vida no longo prazo.",
+   f:"Você acha que não gasta em dólar — mas gasolina, celular e comida sobem junto com o dólar. Ter dólar no bolso é o seguro do seu próprio custo de vida.",
+   dado:"Câmbio afeta <b>~16% a 18%</b> da cesta de consumo do brasileiro em todas as faixas de renda (FGV-EASP). iPhone 2008→2025: <b>+60% em US$</b>, mas <b>+185% em R$</b> — a diferença é câmbio.",
+   avoid:""},
+
+  {id:4, cat:"juros", catLabel:"Juros & Brasil",
+   o:"A Selic está em 14,5%. Ganho isso quase sem risco. Por que sair?",
+   k:"14,5% nominal é de fato atraente — e a renda fixa Brasil deve seguir sendo o núcleo da carteira.",
+   tec:"Juro nominal alto não é almoço grátis — é o preço do risco-país e, em boa parte, a compensação pela perda esperada da moeda. A prova está no histórico: mesmo com juro muito menor lá fora, o Treasury americano somado à variação cambial bateu o CDI ao longo do tempo. Entre 2010 e 2024, um Treasury de curtíssimo prazo (juro baixíssimo em dólar) mais o câmbio rendeu cerca de 325,7% em reais, contra cerca de 284,4% do CDI no mesmo período — porque o 'juro a mais' do Brasil foi corroído pela desvalorização do real. Há ainda a ilusão de ótica entre sensação e realidade: R$1 milhão aplicado no CDI desde 2000 virou aproximadamente R$16 milhões em reais (parece excelente), mas, medido em dólar, o mesmo patrimônio saiu de cerca de US$3,0 milhões em 2011 para cerca de US$2,5 milhões hoje — perdeu poder de compra global. Não se trata de abandonar o CDI, que segue como núcleo da carteira; trata-se de reconhecer que concentrar 100% nele é dobrar a aposta no Brasil e no real.",
+   com:"Não brigue com a Selic — incorpore. A renda fixa Brasil continua sendo o coração da carteira; a conversa é sobre a fração que protege o cliente se essa mesma taxa alta virar um problema (crise fiscal, disparada do dólar). Use o contraste sensação × realidade: o CDI 'em reais' encanta, mas o que preserva poder de compra no longo prazo é ter parte do patrimônio em moeda forte.",
+   f:"14,5% é o Brasil te pagando bem porque o risco é alto. No longo prazo, juro americano mais dólar já bateu o CDI — porque o juro a mais aqui só repõe o que o real perde.",
+   dado:"2010–2024: Treasury + câmbio rendeu <b>~325,7%</b> em reais vs. <b>~284,4%</b> do CDI. E o CDI que virou <b>R$16M</b> desde 2000 encolheu de <b>~US$3,0M (2011)</b> para <b>~US$2,5M</b> em dólar.",
+   avoid:"Não vender como garantia de que dólar + Treasury sempre baterá o CDI. É o histórico de uma janela longa; apresente como tendência estrutural (juro alto reflete risco cambial), não como promessa de retorno futuro."},
+
+  {id:5, cat:"juros", catLabel:"Juros & Brasil",
+   o:"Lá fora o juro é baixo. Não compensa.",
+   k:"",
+   tec:"Não se trata de trocar 14,5% por 4%. O papel da parcela internacional não é o juro de curto prazo — é exposição à bolsa global (empresas que não existem na B3), diversificação de moeda e de ciclo econômico. E, mesmo no comparativo direto de juros, o histórico mostra que o juro americano somado à variação cambial foi competitivo com o CDI — e o superou em janelas longas (ver o argumento sobre a Selic). Comparar Selic com Treasury de forma isolada é comparar funções diferentes: uma é o núcleo de renda; a outra é diversificação e porto seguro em dólar quando o cenário global piora.",
+   com:"Eduque sobre o papel de cada peça. O cliente não vai para fora pelo juro — vai pela bolsa global e pela moeda forte. São funções distintas dentro da mesma carteira.",
+   f:"Lá fora você não busca juro — busca as 99% das empresas do mundo que não estão na B3, e uma moeda que protege quando aqui aperta.",
+   avoid:""},
+
+  {id:6, cat:"risco", catLabel:"Risco & Mercado",
+   o:"Investir lá fora é mais arriscado.",
+   k:"É a percepção mais comum — o desconhecido sempre parece mais arriscado.",
+   tec:"É contraintuitivo, mas adicionar ativos internacionais descorrelacionados normalmente reduz a volatilidade da carteira total (princípio da fronteira eficiente). O Brasil é cerca de 1% do PIB e do mercado acionário global; manter 100% aqui é, tecnicamente, a posição mais concentrada — logo, a mais arriscada. Risco de verdade é concentração: um único país, uma única moeda, um único arcabouço fiscal e político.",
+   com:"Inverta o ônus da prova. O arriscado não é diversificar — é apostar 100% do patrimônio em um único país emergente. Diversificar é justamente o que tira risco da mesa.",
+   f:"Concentrar tudo no Brasil não é o seguro — é a aposta. Diversificar lá fora é o que reduz o risco.",
+   avoid:""},
+
+  {id:7, cat:"risco", catLabel:"Risco & Mercado",
+   o:"Os EUA estão caros. Isso é bolha, os múltiplos estão esticados.",
+   k:"Os valuations americanos estão de fato historicamente altos — é uma preocupação legítima.",
+   tec:"Múltiplo alto explica mal o retorno de curto prazo e é um péssimo gatilho de timing. O mercado americano é chamado de 'caro' há mais de uma década — e, nesse mesmo período, seguiu entre os que mais subiram no mundo. Desde 2015, os setores de crescimento nos EUA renderam cerca de 29% ao ano (em reais), contra cerca de 5% do Brasil e 4% do CDI. Quem ficou de fora esperando 'ficar barato' não evitou risco: apenas deixou de capturar retorno, e o custo acumulado dessa ausência superou de longe o risco de ter entrado 'caro'. Vale ainda lembrar que internacional não é só S&P 500 — há mercados desenvolvidos ex-EUA, Europa, Japão e emergentes, muitos a múltiplos descontados. E, para quem teme o ponto de entrada, o aporte gradual dilui exatamente esse risco de cronometragem.",
+   com:"Acolha a preocupação e reposicione o risco. Concordar que parte do mercado está cara é honesto — mas o histórico mostra que, nesse caso, o maior risco tem sido ficar de fora. Por isso a entrada é diversificada (não só EUA) e gradual, para não depender de acertar o momento.",
+   f:"Dizem que os EUA estão 'caros' há mais de dez anos — e nesse tempo quem ficou de fora foi quem perdeu. Caro não é sinônimo de parar de subir.",
+   dado:"Desde 2015 (em R$): Crescimento EUA <b>~29,2% a.a.</b>, Tecnologia Ásia <b>~25,3%</b>, Luxo Europa <b>~21,5%</b> — contra Brasil <b>~5,1%</b> e CDI <b>~3,8%</b>. 'Caro' há anos, seguiu subindo.",
+   avoid:"Não transformar 'quem ficou de fora perdeu' em promessa de que sempre subirá. É histórico; o argumento é sobre o custo de tentar cronometrar o mercado, não sobre garantia de retorno futuro."},
+
+  {id:8, cat:"risco", catLabel:"Risco & Mercado",
+   o:"E se estourar uma crise lá fora, tipo 2008?",
+   k:"",
+   tec:"Crises grandes são globais — 2008 derrubou a Bolsa brasileira tanto quanto (ou mais que) a americana, então ficar só no Brasil não protege contra um choque global. E, por mais contraintuitivo que pareça, mesmo quando a crise nasce lá fora, quem está alocado lá fora costuma sofrer menos, por dois motivos. Primeiro, o mercado brasileiro é mais volátil: seu beta frente ao índice global é cerca de 1,46, contra cerca de 0,92 dos EUA — ou seja, o Brasil amplifica as quedas globais, enquanto o mercado americano tende a cair menos que a média mundial. Segundo, em episódios de estresse o capital corre para o dólar e para os Treasuries (fuga para qualidade), e essa valorização do dólar amortece a perda para o investidor brasileiro — uma proteção dupla. Com horizonte longo e rebalanceamento, a crise deixa de ser ameaça e vira oportunidade de aporte.",
+   com:"Mostre que ficar no Brasil não é abrigo: em 2008 a Bolsa local caiu junto e com mais intensidade. Quem tinha dólar e Treasury sofreu menos na renda variável e ainda ganhou proteção pela alta do dólar. Crise global não respeita fronteira — mas o dólar costuma ser o lado que protege.",
+   f:"Crise grande lá fora respinga aqui de qualquer jeito — e o Brasil ainda cai mais forte. A diferença é que quem tem dólar está no lado que amortece a queda.",
+   dado:"Beta frente ao mercado global: Brasil <b>~1,46</b> (amplifica as quedas) vs. EUA <b>~0,92</b> (cai menos que a média). Em estresse, o dólar ainda se valoriza e reduz a perda medida em reais.",
+   avoid:""},
+
+  {id:9, cat:"risco", catLabel:"Risco & Mercado",
+   o:"Já me diversifico com Vale, Petrobras e exportadoras.",
+   k:"É um raciocínio inteligente — exportadoras de fato têm dólar na receita.",
+   tec:"Empresas exportadoras dão exposição a commodities e a um pedaço de dólar na receita, mas continuam sendo risco-Brasil: listadas na B3, sujeitas a governança, política, intervenção, tributação e câmbio locais. Isso é 'dólar com risco Brasil embutido', não diversificação de jurisdição. Não substitui ter patrimônio fora do alcance do risco doméstico.",
+   com:"Reconheça o esforço e mostre o limite. Vale e Petro ainda são empresas brasileiras, na bolsa brasileira, sob regras brasileiras. Diversificação de verdade é ter patrimônio fora do risco-país.",
+   f:"Petro e Vale te dão commodity, não te dão proteção de jurisdição. Continua tudo sob o mesmo risco-país.",
+   avoid:""},
+
+  {id:10, cat:"tributacao", catLabel:"Tributação & Burocracia",
+   o:"O imposto lá fora é complicadíssimo.",
+   k:"Era uma dor real até 2023 — e mudou justamente para melhor.",
+   tec:"Desde a Lei 14.754/2023, as aplicações financeiras no exterior da pessoa física têm alíquota única de 15% sobre rendimentos e ganhos, apurada e recolhida uma vez por ano na declaração anual — sem come-cotas (diferente de fundos locais) e com possibilidade de compensar perdas entre ativos. Há acordo de reciprocidade Brasil–EUA que permite compensar o IR retido na fonte sobre dividendos americanos, evitando bitributação. Na prática, ficou mais simples e previsível do que a maioria imagina.",
+   com:"Transforme a objeção em diferencial. A regra mudou e simplificou: 15% por ano, sem come-cotas, com relatório pronto da corretora para o contador. É mais simples do que parece.",
+   f:"Hoje é alíquota única de 15%, uma vez por ano, sem come-cotas. A corretora gera o relatório — seu contador só transcreve.",
+   avoid:"Não dê orientação tributária definitiva. Sempre direcione ao contador para o caso concreto (offshore, PIC e trust têm regras próprias)."},
+
+  {id:11, cat:"tributacao", catLabel:"Tributação & Burocracia",
+   o:"Vou ter um trabalhão com declaração e contador.",
+   k:"",
+   tec:"A obrigação acessória existe, mas as plataformas integradas (XP/Avenue e afins) entregam relatórios anuais em português já no formato da apuração, reduzindo bastante o esforço. Para a maioria dos perfis de aplicação financeira direta, é uma seção a mais na declaração anual — não um regime paralelo nem rotina contínua.",
+   com:"Remova o atrito operacional oferecendo apoio. A Alto Valor entrega o relatório pronto e indica contador que já domina o tema. O trabalho extra é pequeno perto da proteção que o cliente ganha.",
+   f:"O 'trabalho' virou um relatório pronto da corretora. A gente te dá o caminho — você não faz nada sozinho.",
+   avoid:""},
+
+  {id:12, cat:"tributacao", catLabel:"Tributação & Burocracia",
+   o:"Abrir conta no exterior deve ser difícil e demorado.",
+   k:"",
+   tec:"Hoje a abertura é majoritariamente digital, via plataformas integradas ao ecossistema (XP/Avenue e afins), em poucos dias, com câmbio e remessa dentro da própria estrutura. Para o investidor padrão de aplicação financeira, não exige sair do país nem advogado. Estruturas offshore e PIC são outra camada — opcional, voltada a patrimônios maiores e planejamento sucessório.",
+   com:"Tire o medo do processo conduzindo de ponta a ponta. É digital, leva poucos dias, e o assessor acompanha do começo ao fim — o cliente só precisa dos documentos.",
+   f:"Conta lá fora hoje se abre pelo celular em poucos dias — e eu faço o processo junto com você.",
+   avoid:""},
+
+  {id:13, cat:"tributacao", catLabel:"Tributação & Burocracia",
+   o:"As taxas são caras lá fora.",
+   k:"",
+   tec:"O custo depende do veículo escolhido e, de forma geral, caiu bastante nos últimos anos: hoje é transparente e, diluído no horizonte de longo prazo, representa uma fração pequena do resultado. O ponto central é que custo não se avalia isoladamente — o que importa é o resultado líquido, depois de custos, frente ao benefício de diversificação e proteção que a alocação entrega. Uma carteira levemente mais cara, porém descorrelacionada do risco-Brasil, pode ser muito mais eficiente do que uma carteira 'barata' 100% exposta a um único país e a uma única moeda. Além disso, boa parte dos custos (como spread de câmbio e custódia) é negociável e tende a diminuir conforme o patrimônio cresce.",
+   com:"Reancore a conversa de 'custo' para 'custo × benefício'. O que o cliente paga é pequeno perto do risco que sai da carteira — e evolui a favor dele conforme o patrimônio cresce. Foque no resultado líquido e na proteção, não na taxa isolada, sem prender a discussão a um produto específico.",
+   f:"Custo se mede depois de tudo: uma carteira protegida do risco-Brasil vale muito mais do que economizar alguns décimos de taxa concentrando tudo aqui.",
+   avoid:"Não direcionar produto nem citar veículo específico. O argumento é sobre custo líquido × benefício de diversificação — a escolha do veículo vem depois, conforme perfil e planejamento."},
+
+  {id:14, cat:"liquidez", catLabel:"Liquidez & Segurança",
+   o:"E se eu precisar do dinheiro? Demora pra trazer de volta.",
+   k:"",
+   tec:"ETFs e Treasuries têm liquidez diária; a venda e a repatriação via câmbio costumam liquidar em poucos dias úteis. Não é dinheiro 'preso'. O correto é manter a reserva de emergência em real e líquida no Brasil — a parcela internacional é de médio e longo prazo, como deve ser qualquer alocação estratégica.",
+   com:"Separe os baldes para o cliente. A reserva de emergência fica aqui, líquida em real; o dinheiro de fora é o de longo prazo — e, mesmo esse, se precisar, volta em poucos dias.",
+   f:"Não fica preso: vende e em poucos dias está de volta. Sua emergência continua aqui no Brasil, líquida.",
+   avoid:""},
+
+  {id:15, cat:"liquidez", catLabel:"Liquidez & Segurança",
+   o:"Tenho medo de confisco ou bloqueio do dinheiro.",
+   k:"",
+   tec:"Manter patrimônio em jurisdições de forte segurança jurídica (ex.: EUA) e diversificar o país de custódia é, em si, uma proteção contra eventos domésticos — o trauma do confisco brasileiro foi um episódio interno, não internacional. Diversificar jurisdição reduz o risco de uma única canetada local atingir 100% do patrimônio. Para patrimônios maiores, há estruturas de proteção patrimonial e sucessória.",
+   com:"Use a memória do risco doméstico a favor. O confisco que assustou o brasileiro aconteceu aqui dentro; ter parte do patrimônio fora, em jurisdição sólida, é exatamente o que protege contra isso.",
+   f:"O risco de canetada é aqui, não lá. Ter patrimônio fora é o seguro contra o confisco doméstico — não o contrário.",
+   avoid:""},
+
+  {id:16, cat:"liquidez", catLabel:"Liquidez & Segurança",
+   o:"Prefiro deixar tudo aqui, onde eu controlo e conheço.",
+   k:"",
+   tec:"Familiaridade não é segurança — é viés de proximidade (home bias). Conhecer melhor o Brasil não reduz o risco de concentração; reduz apenas o desconforto. As plataformas integradas dão visibilidade e controle total da posição internacional na mesma tela do restante da carteira.",
+   com:"Acolha o conforto e amplie. Faz sentido a tranquilidade de conhecer — mas hoje o cliente acompanha tudo no mesmo app, com o assessor ao lado. Ele não perde controle: ganha alcance.",
+   f:"Conhecer o Brasil não deixa seu dinheiro mais seguro — só mais confortável. Dá pra ter controle e diversificação ao mesmo tempo.",
+   avoid:""},
+
+  {id:17, cat:"perfil", catLabel:"Perfil & Momento",
+   o:"Não tenho patrimônio suficiente pra isso.",
+   k:"",
+   tec:"A barreira de entrada caiu muito: com ETFs e plataformas integradas dá para começar com valores baixos e aportes mensais. Diversificação internacional não é privilégio de grandes fortunas — é boa prática de carteira em qualquer faixa de patrimônio, ajustada à proporção adequada ao perfil.",
+   com:"Democratize e proponha um começo pequeno. Não precisa de fortuna: começa pequeno, com aporte mensal, e cresce com o tempo. O importante é começar a montar a proteção.",
+   f:"Diversificar fora não é coisa de milionário. Começa pequeno, todo mês, e cresce com você.",
+   avoid:""},
+
+  {id:18, cat:"perfil", catLabel:"Perfil & Momento",
+   o:"Agora não é o momento. Vou esperar melhorar.",
+   k:"",
+   tec:"Esperar 'o momento certo' é market timing, que tem histórico ruim mesmo entre profissionais; o custo de ficar de fora costuma superar o de entrar num momento subótimo. Aporte programado (custo médio) resolve o dilema do ponto de entrada sem exigir adivinhação. Proteção patrimonial é estrutural, não tática — não existe 'momento' para ter ou não ter seguro.",
+   com:"Crie urgência sem pressão. O melhor momento para ter proteção é antes de precisar dela. Em vez de adivinhar o topo, a entrada é parcelada, todo mês.",
+   f:"Ninguém acerta o momento — nem os gestores. Por isso a gente entra parcelado, e o tempo trabalha a favor.",
+   avoid:""},
+
+  {id:19, cat:"perfil", catLabel:"Perfil & Momento",
+   o:"Não entendo nada de mercado internacional.",
+   k:"",
+   tec:"O cliente não precisa virar especialista em mercado global — para isso existem o assessor, a curadoria de produtos e veículos diversificados (ETFs e fundos) que entregam exposição ampla sem necessidade de escolher ativo a ativo. É o mesmo nível de delegação que ele já aceita na renda fixa e nos fundos locais.",
+   com:"Reposicione como a sua função. O cliente não precisa entender de mercado americano — é para isso que o assessor existe. A exposição é feita com veículos diversificados, acompanhada de perto.",
+   f:"Você não precisa entender o mercado lá fora. Precisa de alguém que entenda do seu lado — e é exatamente o que eu faço.",
+   avoid:""}
+];
+
+const CATS = [
+  {key:"all", label:"Todas"},
+  {key:"cambio", label:"Câmbio"},
+  {key:"juros", label:"Juros & Brasil"},
+  {key:"risco", label:"Risco & Mercado"},
+  {key:"tributacao", label:"Tributação & Burocracia"},
+  {key:"liquidez", label:"Liquidez & Segurança"},
+  {key:"perfil", label:"Perfil & Momento"}
+];
+
+let activeCat = "all";
+let query = "";
+
+const chipsEl = document.getElementById("chips");
+const gridEl  = document.getElementById("grid");
+const countEl = document.getElementById("count");
+const qEl     = document.getElementById("q");
+
+CATS.forEach(c=>{
+  const b = document.createElement("button");
+  b.className = "chip" + (c.key==="all"?" active":"");
+  b.textContent = c.label;
+  b.onclick = ()=>{ activeCat=c.key; document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active")); b.classList.add("active"); render(); };
+  chipsEl.appendChild(b);
+});
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function matches(d){
+  if(activeCat!=="all" && d.cat!==activeCat) return false;
+  if(!query) return true;
+  const hay = (d.o+" "+d.k+" "+d.tec+" "+d.com+" "+d.f+" "+d.catLabel+" "+(d.avoid||"")).toLowerCase();
+  return query.toLowerCase().split(/\s+/).every(t=>hay.includes(t));
+}
+
+function render(){
+  const list = DATA.filter(matches);
+  countEl.textContent = list.length + (list.length===1?" objeção":" objeções");
+  gridEl.innerHTML = "";
+  if(list.length===0){
+    gridEl.innerHTML = '<div class="empty">Nenhuma objeção encontrada. Tente outra palavra-chave.</div>';
+    return;
+  }
+  list.forEach((d,i)=>{
+    const card = document.createElement("article");
+    card.className = "card";
+    card.style.animationDelay = (Math.min(i,8)*0.04)+"s";
+    card.innerHTML = `
+      <div class="meta">
+        <span class="cat">${d.catLabel}</span>
+        <span class="id">#${String(d.id).padStart(2,"0")}</span>
+      </div>
+      <div class="objection"><p>${esc(d.o)}</p></div>
+      ${d.k?`<div class="kernel"><b>O que tem de verdade nisso:</b> ${esc(d.k)}</div>`:""}
+      <div class="block tec"><span class="lab">Embasamento técnico</span><p>${esc(d.tec)}</p></div>
+      <div class="block com"><span class="lab">Condução comercial</span><p>${esc(d.com)}</p></div>
+      ${d.dado?`<div class="support"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><div class="txt"><span class="tag">Dado de apoio &middot; gráfico no deck</span>${d.dado}</div></div>`:""}
+      <div class="frase">
+        <button class="copy" aria-label="Copiar frase">Copiar</button>
+        <span class="lab"><span class="tri"></span>Frase de bolso</span>
+        <p>${esc(d.f)}</p>
+      </div>
+      ${d.avoid?`<div class="avoid"><span class="lab">Evitar</span><p>${esc(d.avoid)}</p></div>`:""}
+    `;
+    const btn = card.querySelector(".copy");
+    btn.onclick = ()=>{
+      navigator.clipboard.writeText(d.f).then(()=>{
+        btn.textContent="Copiado"; btn.classList.add("done");
+        setTimeout(()=>{btn.textContent="Copiar"; btn.classList.remove("done");},1600);
+      }).catch(()=>{ btn.textContent="Copiar manualmente"; });
+    };
+    gridEl.appendChild(card);
+  });
+}
+
+let deb;
+qEl.addEventListener("input", e=>{ clearTimeout(deb); deb=setTimeout(()=>{ query=e.target.value.trim(); render(); },120); });
+
+render();
+</script>
+</body>
+</html>
